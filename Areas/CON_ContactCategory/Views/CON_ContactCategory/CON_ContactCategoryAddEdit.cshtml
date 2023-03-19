@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "CON_ContactCategoryAddEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@using AdminPanel.Areas.CON_ContactCategory.Models;
+@model CON_ContactCategoryModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>@TempData["ContactCategoryInsertMsg"]</h4>
+        <h4>@TempData["ContactCategoryUpdateMsg"]</h4>
+        <form method="post" asp-area="CON_ContactCategory" asp-controller="CON_ContactCategory" asp-action="Save">
+            @Html.HiddenFor(x=>x.ContactCategoryID)
+            <div class="form-group">
+                <label><span class="text-danger">*</span>Category Name</label>
+                <input type="text" class="form-control" placeholder="Enter Category Name" asp-for="ContactCategoryName" />
+                <span asp-validation-for="ContactCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Created</label>
+                <input type="date" class="form-control" asp-for="CreationDate" />
+            </div>
+            <div class="form-group">
+                <label>Modified</label>
+                <input type="date" class="form-control" asp-for="ModifiedDate" />
+            </div>
+            <hr />
+            <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "CON_ContactCategory")'" />
+            <button type="Submit" class="btn btn-info">Save</button>
+
+        </form>
+
+
+    </div>
+</div>

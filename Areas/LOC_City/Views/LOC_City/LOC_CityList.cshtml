@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "City List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Data
+@model DataTable
+
+<div class="page-bar " style="padding: 10px 0px 0px 43px;">
+    <ul class="page-breadcrumb">
+        <li>
+            <a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>&nbsp;Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a asp-controller="LOC_City" asp-action="Index">City List</a>
+            <i class="fa fa-circle"></i>
+        </li>
+    </ul>
+</div>
+
+
+<div class="portlet light bordered margin-top-10">
+    <div class="portlet-title">
+        <div class="caption font-dark">
+            <i class="icon-settings font-dark"></i>
+            <span class="caption-subject bold uppercase">City List</span>
+        </div>
+        <div class="actions">
+            <div class="btn-group btn-group-devided">
+                <a asp-area="LOC_City" asp-controller="LOC_City" asp-action="Add" class="btn green btn-rounded"><i class="fa fa-plus"></i>&nbsp;Add City</a>
+            </div>
+        </div>
+    </div>
+     <div class="form-group">
+        <form method="post" asp-area="LOC_City" asp-controller="LOC_City">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control rounded-pill" id="floatingInput" name="CountryName" placeholder="Country Name" value="@ViewBag.CountryName" />
+                   
+                </div>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control rounded-pill" id="floatingInput" name="StateName" placeholder="State Name" value="@ViewBag.StateName" />
+                  
+                </div>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control rounded-pill" id="floatingInput" name="CityName" placeholder="City Name" value="@ViewBag.CityName" />
+                   
+                </div>
+
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-success rounded-pill" asp-action="Search">Search</button>
+                    &nbsp;
+                    <a class="btn btn-danger rounded-pill" asp-action="Index">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+
+        </br>
+<div class="portlet-body">
+        <div class="pull-right">
+            <div class="dataTables_filter">
+                <label>Search Any&nbsp;<input type="text" class="form-control input-sm input-small input-inline" id="search"></label>
+            </div>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover table-header-fixed dataTable" id="search">
+            <thead>
+        <tr>
+            <th style="padding: 8px;">Country Name</th>
+                        <th style="padding: 8px;">State Name</th>
+                        <th style="padding: 8px;">City Name</th>
+                        <th style="padding: 8px;">City Code</th>
+                        <th class="text-center">Created</th>
+                        <th class="text-center">Modified</th>
+                         <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+        <tbody id="search_row">
+        @foreach (DataRow dr in Model.Rows)
+        {
+            <tr>
+                            <td style="padding: 8px;">@dr["CountryName"]</td>
+                            <td style="padding: 8px;">@dr["StateName"]</td>
+                            <td style="padding: 8px;">@dr["CityName"]</td>
+                            <td style="padding: 8px;">@dr["CityCode"]</td>
+                            <td class="text-center">@Convert.ToDateTime(dr["CreationDate"]).ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">@Convert.ToDateTime(dr["ModifiedDate"]).ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">
+                    <form method="post" asp-controller="LOC_City" asp-action="Delete">
+                        <input type="hidden" name="CityID" value="@Convert.ToInt32(dr["CityID"])" />
+                                    <button type="submit" class="btn btn-danger btn-xs" id="abs" onclick="fun1()">
+                                        <i class="fa fa-close"></i>
+                        </button>
+                                    <a class="btn btn-info btn-xs" asp-area="LOC_City" asp-controller="LOC_City" asp-action="Add" asp-route-cityid="@Convert.ToInt32(dr["CityID"])"><i class="fa fa-pencil"></i></a>
+                    </form>
+                </td>
+                   
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+

@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "LOC_StateAddEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@using AdminPanel.Areas.LOC_State.Models;
+@model LOC_StateModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>@TempData["Msg"]</h4>
+        <form method="post" asp-area="LOC_State" asp-controller="LOC_State" asp-action="Save">
+            @Html.HiddenFor(x=>x.StateID)
+            <div class="form-group">
+                <label><span class="text-danger">*</span>Country Name</label>
+                <select class="form-control" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+                    <option value="">Select Country</option>
+                </select>
+                <span asp-validation-for="CountryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label><span class="text-danger">*</span>State Name</label>
+                <input type="text" class="form-control" placeholder="Enter State Name" asp-for="StateName" />
+                <span asp-validation-for="StateName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label><span class="text-danger">*</span>State Code</label>
+                <input type="text" class="form-control" placeholder="Enter State Code" asp-for="StateCode" />
+                <span asp-validation-for="StateCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Created</label>
+                <input type="date" class="form-control" asp-for="CreationDate" />
+            </div>
+            <div class="form-group">
+                <label>Modified</label>
+                <input type="date" class="form-control" asp-for="ModifiedDate" />
+            </div>
+            <hr />
+            <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "LOC_State")'" />
+            <button type="Submit" class="btn btn-info">Save</button>
+
+        </form>
+
+
+    </div>
+</div>

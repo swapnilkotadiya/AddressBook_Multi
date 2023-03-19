@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "LOC_CountryAddEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@using AdminPanel.Areas.LOC_Country.Models;
+@model LOC_CountryModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>@TempData["CountryInsertMsg"]</h4>
+        <h4>@TempData["CountryUpdateMsg"]</h4>
+        <form method="post" asp-area="LOC_Country"  asp-controller="LOC_Country" asp-action="Save">
+            @Html.HiddenFor(x=>x.CountryID)
+            <div class="form-group">
+
+                <label><span class="text-danger">*</span>Country Name</label>
+                <input type="text" class="form-control" placeholder="Enter Country Name" asp-for="CountryName"/>
+                <span asp-validation-for="CountryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label><span class="text-danger">*</span>Country Code</label>
+                <input type="text" class="form-control" placeholder="Enter Country Code" asp-for="CountryCode" />
+                <span asp-validation-for="CountryCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Created</label>
+                <input type="date" class="form-control"  asp-for="CreationDate"/>
+            </div>
+            <div class="form-group">
+                <label>Modified</label>
+                <input type="date" class="form-control"  asp-for="ModifiedDate"/>
+            </div>
+            <hr/>
+            <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "LOC_Country")'" />
+            <button type="Submit" class="btn btn-info">Save</button>
+        </form>
+       
+        
+        
+
+    </div>
+</div>
